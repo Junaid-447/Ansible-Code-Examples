@@ -1,0 +1,7 @@
+---
+- name: Ansible Playbook to check localhost
+  hosts: local
+  tasks:
+   - name: Ping the localhost
+     ping:
+
