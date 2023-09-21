@@ -1,8 +1,8 @@
 ---
-- name: Ansible Playbook to download nginx module
+- name: Ansible Playbook to iterate over a loop using with_items directly
   hosts: local
   tasks:
-   - name: Get a Nginx module 
+   - name: Download modules 
      homebrew:
        name: "{{ item }}"
        state: present

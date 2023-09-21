@@ -1,0 +1,17 @@
+---
+- name: Execute shell commands and create Directory
+  hosts: local
+  tasks:
+  - name: Run the list directory commands
+    ansible.builtin.command: ls ~/Documents/Basics
+    register: ls_op
+  - name: Print the list
+    ansible.builtin.debug:
+      msg: "{{ ls_op.stdout_lines }}"
+  - name: Create a directory
+    file:
+      dest: "~/Documents/Basics/Test-Directory"
+      state: directory 
+      
+      
+

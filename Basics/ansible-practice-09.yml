@@ -1,0 +1,12 @@
+---
+- name: Copy files
+  hosts: local
+  tasks:
+  - name: Copy files from one location to other
+    ansible.builtin.copy:
+      src: "~/Documents/Basics/test-file.txt"
+      dest: "~/Documents/"
+    when: ansible_distribution == "MacOSX"
+      
+      
+

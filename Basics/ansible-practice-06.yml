@@ -1,0 +1,23 @@
+---
+- name: Add text to a file created
+  hosts: local
+  vars:
+    fruits: 
+      - My name is Junaid
+      - I am a DevOps Engineer
+      - Working on Ansible
+  tasks:
+  - name: Create a new file
+    file:
+      name: test-file-2.txt
+      state: touch
+  - name: Edit contents of the file
+    lineinfile:
+      path: ~/Documents/Basics/test-file-2.txt
+      line: "{{ item }}"
+      state: present
+    with_items: "{{ fruits }}"
+  - name: Use lookup to print content of the new file
+    debug:
+      var: "Content of the file is : {{ lookup('file','~/Documents/Basics/test-file-2.txt') }}"
+      verbosity: 3

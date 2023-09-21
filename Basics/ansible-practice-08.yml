@@ -1,0 +1,18 @@
+---
+- name: Update cache if Debian
+  hosts: local
+  tasks:
+  - name: Gather OS facts
+    ansible.builtin.setup:
+    register: os_data
+  - name: Update the nginx package
+    homebrew:
+      name: nginx
+      update_cache: yes
+    when: ansible_os_family == 'Debian'
+  - name: get the os family name
+    debug:
+      msg: OS Family Name is {{ ansible_distribution }}
+  
+      
+

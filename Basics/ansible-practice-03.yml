@@ -1,0 +1,15 @@
+---
+- name: Ansible Playbook to iterate over a loop using variables
+  hosts: local
+  vars:
+    fruits: 
+      - apple
+      - strawberry
+      - mango
+  tasks:
+   - name: Print the content of the loop 
+     debug:
+       var: "{{ item }}"
+       verbosity: 3
+     with_items: "{{ fruits }}"
+

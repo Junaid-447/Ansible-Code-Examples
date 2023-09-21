@@ -1,0 +1,25 @@
+---
+- name: Ansible Playbook to test handlers
+  hosts: local
+
+  tasks:
+   - name: Copy a file and run a shell script
+     copy:
+      src: "~/Documents/get-time.sh"
+      dest: "~/Documents/Intermediate/get-time.sh"
+
+   - name: Check if file is present
+     ansible.builtin.find:
+      path: "~/Documents/Intermediate"
+      patterns:
+        - "*.sh"
+     register: file_present
+
+   - name: Trigger the handler
+     meta: end_play
+     when: file_present.matched>0
+     
+  handlers:
+   - name: run script
+     command: /bin/bash ~/Documents/Intermediate/get-time.sh
+        

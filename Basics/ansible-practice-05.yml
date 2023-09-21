@@ -1,0 +1,20 @@
+---
+- name: Add text to a file created
+  hosts: local
+  vars:
+    fruits: 
+      - apple
+      - strawberry
+      - mango
+  tasks:
+   - name: Create a new file
+     file:
+        name: test-file.txt
+        state: touch
+   - name: Edit contents of the file
+     lineinfile:
+        path: ~/Documents/Basics/test-file.txt
+        line: "{{ item }}"
+        state: present
+     with_items: "{{ fruits }}"
+

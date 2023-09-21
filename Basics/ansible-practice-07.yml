@@ -1,0 +1,13 @@
+---
+- name: Multiple Number
+  hosts: local
+  vars:
+    num_list:
+      - 1
+      - 2
+      - 3
+  tasks:
+  - name: Multiply number by 2
+    debug:
+      var: "After multiplication: {{ item }}"
+    loop: "{{ num_list | map('multiply', 2) | list }}"

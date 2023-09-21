@@ -1,0 +1,19 @@
+---
+- name: Execute shell commands and create Directory
+  hosts: local
+  tasks:
+  - name: Iterate a map
+    vars:
+      sports:
+        India: Cricket
+        USA: Basketball
+        Canada: IceHockey
+    ansible.builtin.debug:
+      msg: "{{ item.value }}"
+      verbosity: 1
+    loop: "{{ sports | dict2items }}"
+    when: item.key == "USA"
+
+      
+      
+

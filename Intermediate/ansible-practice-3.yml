@@ -1,0 +1,65 @@
+---
+- name: Ansible Playbook to create docker container
+  hosts: local
+  gather_facts: true
+  vars:
+    var3 : " {{ lookup('file','~/Documents/Basics/test-file.txt') }}" 
+    mypath : '/Documents/Basics'
+    var1 : 'java'
+    var2 : 'java'
+    my_dict:
+      v1 : 
+        v11: vv1
+      v2 :
+        v12: vv2
+    my_list:
+        - key: Cricket
+          value: Bat
+        - key: Football
+          value: Ball
+  tasks:
+    - name: Update the dockerfile config
+      ansible.builtin.command: 'ls -al'
+      register: otp
+    - name: Print output
+      ansible.builtin.debug:
+        msg: "Output for listing is: ${{ otp.stdout_lines }}"  
+    # - name: Try default values
+    #   ansible.builtin.homebrew:
+    #     name: "{{ var1 | default('php') }}"
+    #     state: latest
+    - name: Read a file
+      ansible.builtin.command: cat ~/Documents/Basics/ansible-practice-04.yml
+      register: cmd_output
+    - name: Try ansible functions module
+      ansible.builtin.debug:
+        msg: "{{ lookup('env', var1) | default('php', true) }}"
+        msg: "{{ (var1 == 'java' | ternary('start', 'stop')) }}"
+        msg: "{{ [0,1] | map('extract',['a','b','c','d']) | list }}"
+        msg: "{{ my_dict | dict2items(key_name='key1', value_name='value1') }}"
+        msg: "{{ my_list | items2dict }}"
+        msg: "{{ cmd_output.stdout | to_nice_json }}"
+        msg: "{{ ['foo', 'bar'] | product(['com']) | map('join', '.') | join(',') }}"
+        msg: "{{ var3 }}"
+        msg: "{{ ansible_facts }}"
+    - name: Use the loop functions
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      # loop: "{{ lookup('fileglob', '*.yml', wantlist=True) }}"
+      with_fileglob: '*.yml'
+    - name: Give users access to multiple databases
+      ansible.builtin.debug:
+        msg: "{{ item[0] }}"
+        msg: "{{ item[1] }}.*:ALL"
+      loop: "{{ ['alice', 'bob'] | product(['clientdb', 'employeedb', 'providerdb']) | list }}"
+    - name: Get CPU Tempareture
+      ansible.builtin.set_fact:
+        distribution: "{{ ansible_facts['distribution'] }}"
+    - name: Print Temperature
+      ansible.builtin.debug:
+        msg: "Temp is {{ distribution }}"
+      
+    - name: Run the command if "foo" is defined
+      ansible.builtin.shell: echo "I've got '{{ var1 }}' and am not afraid to use it!"
+      when: var1 is defined
+
