@@ -1,0 +1,4 @@
+apiVersion: v2
+name: base-chart
+description: A shared base chart for Nginx
+version: 1.0.0
