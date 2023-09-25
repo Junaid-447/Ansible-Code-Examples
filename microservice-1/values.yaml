@@ -1,6 +1,0 @@
-base-chart:
-
-  replicaCount: 3 # Customizing replica count for microservice1
-
-  metadata:
-    name: nginx-1
