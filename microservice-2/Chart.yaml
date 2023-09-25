@@ -1,8 +1,0 @@
-apiVersion: v2
-name: microservice2
-description: Helm chart for Microservice 2
-version: 1.0.0
-dependencies:
-- name: base-chart
-  version: 1.0.0
-  repository: "file://../base-chart"

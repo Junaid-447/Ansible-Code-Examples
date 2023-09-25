@@ -1,6 +1,0 @@
-base-chart:
-
-  replicaCount: 3
-
-  metadata:
-    name: nginx-2
